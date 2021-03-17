@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}
+{% block title %}
+<title> Add Student</title>
+{% endblock %}
+{% block content %}
+<!--    <div class="navbar">-->
+<!--        <ul>-->
+<!--            <li><a href="http://127.0.0.1:8000/products/">Home</a></li>-->
+<!--            <li><a href="header">Header</a></li>-->
+<!--            <li><a href="form">Form</a></li>-->
+<!--            <li><a href="person">PersonForm</a></li>-->
+<!--            <li><a href="student">Student</a></li>-->
+<!--        </ul>-->
+<!--    </div>-->
+    <form method="POST">
+        {% csrf_token %}
+      <div class="form-group">
+        <label for="firstname">First Name</label>
+        <input type="text" class="form-control" id="firstname" name="firstname" value="{{students.firstname}}">
+      </div>
+      <div class="form-group">
+        <label for="lastname">Last Name</label>
+        <input type="text" class="form-control" id="lastname" name="lastname" value="{{students.lastname}}">
+      </div>
+      <div class="form-group">
+        <label for="batch">Batch</label>
+        <input type="text" class="form-control" id="batch" name="batch" value="{{students.batch}}">
+      </div>
+        <div class="form-group">
+            <label for="category">Category</label>
+            <select class="form-control" name="category" id="category">
+                {% if students.category == 'Bsc (Hons) Computing' %}
+                <option selected>Bsc (Hons) Computing</option>
+                <option >Bsc (Hons) Ethical Hacking</option>
+                {% endif %}
+                 {% if students.category == 'Bsc (Hons) Ethical Hacking' %}
+                <option >Bsc (Hons) Computing</option>
+                <option selected>Bsc (Hons) Ethical Hacking</option>
+                {% endif %}
+            </select>
+        </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" class="form-control" id="email" name="email" value="{{students.email}}">
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="text" class="form-control" id="password" name="password" value="{{students.password}}">
+      </div>
+      <div class="form-group">
+        <label for="image_url">Image Url</label>
+        <input type="text" class="form-control" id="image_url" placeholder="Image Url" name="image_url">
+      </div>
+
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+{% endblock %}

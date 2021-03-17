@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}
+<title>Title</title>
+{% include 'products/header.html' %}
+{% endblock %}
+{% block content %}
+ <h1>This is heading 1</h1>
+
+<ul >
+    {% for products in products %}
+    <h3>Name:</h3>
+    <li style="list-style:none;">{{products.name}}</li>
+    <h3>Price:</h3>
+    <li style="list-style:none;">{{products.price}}</li>
+    <h3>Img Link:</h3>
+        <li>{{products.image_url}}</li>
+
+    {% endfor %}
+</ul>
+<img class="rounded-circle img-fluid" src="{% static 'images/mypic.jpg' %}">
+{% endblock %}

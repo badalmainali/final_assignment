@@ -1,0 +1,75 @@
+{% extends 'layout.html' %}
+{% block title %}
+<title>All Person</title>
+{% endblock %}
+{% block content %}
+<style>
+    body{
+        background-color: red;
+    }
+
+    .success_message{
+        background: green;
+        color: #ffff;
+        border-radius: 5px;
+    }
+
+    .error_message{
+        background: green;
+        color: #ffff;
+        border-radius: 5px;
+    }
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+            {% for message in messages %}
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+            <h6 class="success_message py-3 px-1 my-2 text-center">{{message}}</h6>
+            {% endif %}
+
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+            <h6 class="error_message py-3 px-1 my-2 text-center">{{message}}</h6>
+            {% endif %}
+            {% endfor %}
+
+
+
+            <h1 class="text-center">All Person</h1>
+            <div class="card py-2 px-2">
+                <a class="btn btn-success btn-sm ml-auto mb-2"
+                   href="/products/postPersonMF">Add New Person</a>
+
+                <div class="card card-body">
+                    <form class="form" method="GET">
+                        {{person_filter.form}}
+                        <button type="submit" class="btn btn-primary btn-sm">
+                            Search
+                        </button>
+                    </form>
+                </div>
+                <table class="table-striped">
+                    <tr>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Actions</th>
+                    </tr>
+                    {% for person in persons %}
+                    <tr>
+                        <td> {{ person.firstname }}</td>
+                        <td> {{ person.lastname }}</td>
+                        <td> {{ person.email }}</td>
+                        <td> {{ person.phone }}</td>
+                        <td><a href="/products/updatePersonMF/{{person.id}}" class="btn btn-primary btn-sm">Edit</a> &nbsp;
+                            <a href="/products/deletePersonMF/{{person.id}}" class="btn btn-danger btn-sm"
+                               onclick="return confirm('Are you sure want to delete this person?')">Delete</a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
