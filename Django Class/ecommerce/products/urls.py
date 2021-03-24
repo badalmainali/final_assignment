@@ -2,6 +2,10 @@ from django.contrib import admin
 from django.urls import path
 from django.http import HttpResponse
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
+
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -35,7 +39,9 @@ urlpatterns = [
     path('getFileMF',views.get_file_mf),
     path('postFileMF', views.post_file_mf),
     path('updateFileMF/<int:file_id>',views.updateFileMF),
-    path('deleteFileMF/<int:file_id>',views.deleteFileMF)
+    path('deleteFileMF/<int:file_id>',views.deleteFileMF),
+    path('password_change', auth_views.PasswordChangeView.as_view(template_name='products/passwordChange.html')),
+    path('password_change_done', auth_views.PasswordChangeView.as_view(template_name='products/passwordChangeDone.html'), name='password_change_done'),
 
 
 ]

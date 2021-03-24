@@ -29,6 +29,12 @@
                 <a class="btn btn-danger btn-sm mx-2 d-flex mr-auto" href="/logout">Logout</a>
 
             </li>
+             <li class="nav-item" {{active_fileMF}}>
+                <a class="btn btn-danger btn-sm mx-2 d-flex mr-auto" href="/profile">Profile</a>
+                </li>
+            <li class="nav-item" {{active_fileMF}}>
+                <a class="btn btn-danger btn-sm mx-2 d-flex mr-auto" href="/products/password_change">Password Change</a>
+                </li>
             {% else %}
             <li class="nav-item {{activate_fileMF}}">
                 <a class="btn btn-primary btn-sm mx-2" href="/">Login</a>

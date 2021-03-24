@@ -5,7 +5,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import loginform
 from .auth import unauthenticated_user
-
+from .models import Profile
+from .forms import ProfileForm
 
 # Create your views here.
 @unauthenticated_user
@@ -14,7 +15,8 @@ def register_user(request):
         # form = UserCreationForm(request.POST)
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
+            user= form.save()
+            Profile.objects.create(user=user,username=user.username)
             messages.add_message(request, messages.SUCCESS, 'User Registered Successfully')
             return redirect('/')
         else:
@@ -58,3 +60,15 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     return redirect('/')
+
+def user_account(request):
+    profile=request.user.profile
+    form=ProfileForm(instance=profile)
+    if request.method=="POST":
+        form=ProfileForm(request.POST,request.FILES,instance=profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"account update successful for " +str(request.user.profile))
+            return redirect('/profile')
+    context={'form':form}
+    return render(request,'accounts/profile.html',context)
