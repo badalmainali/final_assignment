@@ -3,10 +3,15 @@ from .models import Product
 from .models import person, Student
 from .models import person
 from .models import Student
+from .models import Article
+from .models import Reporter
+
 from .models import FileUpload
 from .form import ProductForm
 from .form import personform
 from .form import FileForm
+from .form import ArticleForm
+from .form import ReporterForm
 from django.http import HttpResponse, request
 import os
 from django.contrib import messages
@@ -246,3 +251,49 @@ def updateFileMF(request, file_id):
 
     }
     return render(request, 'products/updateFileMF.html', context)
+
+def show_reporter_mf(request):
+    reporters = Reporter.objects.all()
+    context = {
+        'reporters':reporters,
+        'activate_reporterMF':'active'
+    }
+    return render(request, 'products/getReporterMF.html', context)
+
+def post_reporter_mf(request):
+    if request.method == 'POST':
+        form = ReporterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.add_message(request, messages.SUCCESS, 'Reporter Added Successfully')
+            return redirect('/products/getReporterMF')
+        else:
+            messages.add_message(request, messages.ERROR, 'Error in adding reporter')
+            return render(request,'products/postReporterMF.html', {'form':form})
+    context = {
+        'form' :ReporterForm
+    }
+    return render(request, 'products/postReporterMF.html',context)
+
+def show_article_mf(request):
+    articles = Article.objects.all()
+    context = {
+        'articles':articles,
+        'activate_articleMF':'active'
+    }
+    return render(request, 'products/getArticleMF.html', context)
+
+def post_article_mf(request):
+    if request.method == 'POST':
+        form = ArticleForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.add_message(request, messages.SUCCESS, 'Article Added Successfully')
+            return redirect('/products/getArticleMF')
+        else:
+            messages.add_message(request, messages.ERROR, 'Error in adding article')
+            return render(request,'products/postArticleMF.html', {'form':form})
+    context = {
+        'form' :ArticleForm,
+    }
+    return render(request, 'products/postArticleMF.html',context)

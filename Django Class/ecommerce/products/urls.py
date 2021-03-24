@@ -42,6 +42,10 @@ urlpatterns = [
     path('deleteFileMF/<int:file_id>',views.deleteFileMF),
     path('password_change', auth_views.PasswordChangeView.as_view(template_name='products/passwordChange.html')),
     path('password_change_done', auth_views.PasswordChangeView.as_view(template_name='products/passwordChangeDone.html'), name='password_change_done'),
+    path('getReporterMF',views.show_reporter_mf),
+    path('postReporterMF',views.post_reporter_mf),
+    path('getArticleMF',views.show_article_mf),
+    path('postArticleMF',views.post_article_mf)
 
 
 ]

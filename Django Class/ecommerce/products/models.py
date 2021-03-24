@@ -37,3 +37,16 @@ class Student(models.Model):
 class FileUpload(models.Model):
     title = models.CharField(max_length=200)
     file = models.FileField(upload_to='static/uploads')
+
+class Reporter(models.Model):
+    first_name=models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    email=models.EmailField()
+
+    def __str__(self):
+        return self.first_name+''+self.last_name
+
+class Article(models.Model):
+    headline=models.CharField(max_length=100)
+    pub_date=models.DateField(auto_now_add=True)
+    reporter=models.ForeignKey(Reporter,on_delete=models.CASCADE)
